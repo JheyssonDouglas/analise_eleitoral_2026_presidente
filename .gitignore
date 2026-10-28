@@ -1,9 +1,23 @@
+# Ambientes virtuais
 .venv/
 .venv-1/
+venv/
+env/
+
+# Arquivos Python
 __pycache__/
 *.py[cod]
+*.pyo
+
+# Configurações e segredos locais
 .env
 .streamlit/secrets.toml
 
+# Dados brutos do TSE e resultados processados
 dados/
 saidas/
+
+# Arquivos temporários
+*.log
+.DS_Store
+Thumbs.db
