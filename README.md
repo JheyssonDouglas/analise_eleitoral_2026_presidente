@@ -12,6 +12,15 @@ O projeto permite explorar os resultados por estado e seção eleitoral, compara
 - DuckDB
 - Plotly
 
+## Ambiente de desenvolvimento
+
+- Sistema operacional: Windows
+- Linguagem: Python
+- Editor recomendado: Visual Studio Code (VS Code)
+
+As instruções deste README foram elaboradas para Windows.
+Em outros sistemas operacionais, alguns comandos podem ser diferentes.
+
 ## 1. Pré-requisitos
 
 Antes de começar, instale:
