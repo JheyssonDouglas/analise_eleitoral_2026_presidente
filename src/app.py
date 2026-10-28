@@ -193,7 +193,12 @@ secoes = consultar(
 )["NR_SECAO"].tolist()
 
 with col6:
-    secao = st.selectbox("Seção eleitoral", ["Todas"] + secoes)
+    secoes_selecionadas = st.multiselect(
+        "Seções eleitorais",
+        options=secoes,
+        placeholder="Todas as seções",
+        help="Selecione uma ou mais seções. Se deixar vazio, todas serão consideradas."
+    )
 
 # Filtros geográficos usados pelas consultas
 filtro_r_uf = "" if uf == "Todas" else "AND r.SG_UF = ?"
@@ -201,7 +206,13 @@ filtro_r_municipio = (
     "" if municipio == "Todos" else "AND r.NM_MUNICIPIO = ?"
 )
 filtro_r_zona = "" if zona == "Todas" else "AND r.NR_ZONA = ?"
-filtro_r_secao = "" if secao == "Todas" else "AND r.NR_SECAO = ?"
+filtro_r_secao = (
+    "AND r.NR_SECAO IN ("
+    + ", ".join(["?"] * len(secoes_selecionadas))
+    + ")"
+    if secoes_selecionadas
+    else ""
+)
 
 params_geo = []
 
@@ -214,9 +225,10 @@ if municipio != "Todos":
 if zona != "Todas":
     params_geo.append(zona)
 
-if secao != "Todas":
-    params_geo.append(secao)
-
+# Adiciona todas as seções selecionadas aos parâmetros das consultas.
+# Quando nenhuma seção é selecionada, o filtro não restringe as seções.
+if secoes_selecionadas:
+    params_geo.extend(secoes_selecionadas)
 
 
 # ==========================================================
